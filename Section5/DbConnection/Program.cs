@@ -1,5 +1,5 @@
-﻿using DbConnection.Connections;
-using System;
+﻿using DbConnection.Commands;
+using DbConnection.Connections;
 
 namespace DbConnection
 {
@@ -10,10 +10,11 @@ namespace DbConnection
             var sqlConnection = new SqlConnection("connectionString");
             var oracleConnection = new OracleConnection("connectionString");
 
-            sqlConnection.OpenConnection();
-            oracleConnection.OpenConnection();
-            sqlConnection.CloseConnection();
-            oracleConnection.CloseConnection();
+            var sqlCommand = new DbCommand("SELECT * FROM SqlDb", sqlConnection);
+            var oracleCommand = new DbCommand("SELECT * FROM OracleDb", oracleConnection);
+
+            sqlCommand.Execute();
+            oracleCommand.Execute();
         }
     }
 }
